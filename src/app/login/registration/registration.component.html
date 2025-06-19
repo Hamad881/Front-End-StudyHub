@@ -1,0 +1,53 @@
+<!-- <p>sign up works</p> -->
+<section class="" style="background-color: #6c757d;">
+ <div class="container  justify-content-center  d-flex">
+  <form class="register  mt-4 mb-3 px-5 " #form="ngForm">
+    <h2 class="pt-3">REGISTER</h2><hr>
+    <div class="mb-3 mt-3">
+      <label for="Name" class="form-label">Name:</label>
+      <input type="Name" #Name="ngModel" [(ngModel)]="registerObj.Name" required class="form-control" id="Name" placeholder="Enter your name" name="Name">
+      <div class="text-danger">
+        @if (Name.errors?.['required']) {
+            <span>* required</span>
+        }
+      </div>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="Username" class="form-label">Username:</label>
+      <input type="Username" #Username="ngModel" [(ngModel)]="registerObj.Username" required class="form-control" id="Username" placeholder="Enter Username" name="Username">
+      <div class="text-danger">
+        @if (Username.errors?.['required']) {
+            <span>* required</span>
+        }
+      </div>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="Email" class="form-label">Email:</label>
+      <input type="Email" #Email="ngModel" [(ngModel)]="registerObj.Email" required class="form-control" id="Email" placeholder="Enter email" name="Email">
+      <div class="text-danger">
+        @if (Email.errors?.['required']) {
+            <span>* required</span>
+        }
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Password:</label>
+      <input type="Password" #Password="ngModel" [(ngModel)]="registerObj.Password" required class="form-control" id="pwd" placeholder="Enter password" name="Password">
+      <div class="text-danger">
+        @if (Password.errors?.['required']) {
+            <span>* required</span>
+        }
+      </div>
+    </div>
+    <!-- <div class="form-check mb-3 justify-content-between d-flex">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+      </label>     
+       <a href="" class="text-white-50">Forget Password</a>
+
+    </div> -->
+    <div class="justify-content-center d-flex pt-3"> <button type="button" [disabled]="form.invalid" (click)="onSubmit()" class="btn btn-outline-light w-50 ">Submit</button></div>
+    <p style="color: rgb(176, 176, 176);" class="d-flex justify-content-center pt-4">Already have an Account? <a routerLink="/sign-in" class="text-white ">Sign In</a></p>
+  </form>
+</div>
+</section>

@@ -1,0 +1,25 @@
+<!-- <p>sign-in works!</p> -->
+ <section class=" vh-100" style="background-color: #6c757d;">
+ <div class="container justify-content-center  d-flex">
+<form class="sign-in mt-5 px-5">
+    <h2 class="pt-3">LOG IN</h2><hr>
+    <div class="mb-3 mt-3">
+      <label for="Username" class="form-label">Username:</label>
+      <input type="Username" class="form-control" [(ngModel)]="loginObj.Username" id="email" placeholder="Enter Username" name="Username">
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Password:</label>
+      <input type="password" class="form-control" [(ngModel)]="loginObj.Password" id="pwd" placeholder="Enter password" name="Password">
+    </div>
+    <div class="form-check mb-3 justify-content-between d-flex">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+      </label>     
+       <a href="" class="text-white-50">Forget Password</a>
+
+    </div>
+    <div class="justify-content-center d-flex pt-3"> <button type="submit" (click)="onSubmit()" class="btn btn-outline-light w-50 ">Submit</button></div>
+    <p style="color: rgb(176, 176, 176);" class="d-flex justify-content-center pt-4">Don't have an Account? <a routerLink="/registration" class="text-white ">Sign Up</a></p>
+  </form>
+</div>
+</section>

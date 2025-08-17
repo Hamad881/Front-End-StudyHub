@@ -1,0 +1,120 @@
+
+<div class="container w-75">
+                  <div class="comment-section">
+                   
+                    @if (getPostComment != undefined && getPostComment !=[] && getPostComment.length>0){
+                        <!-- Comments List -->
+                        
+                    <div class="comments-list">
+                      @for(comment of getPostComment; track $index){
+                      <!-- Comment 1 -->
+
+
+                      <div class="comment-box">
+
+                        <div class="d-flex gap-3">
+                          <app-user-image [username]="comment.username"></app-user-image>
+                          
+                           
+                          <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                              <h6 class="mb-0">{{comment.name}}</h6>
+                              <span class="comment-time">{{comment.created_At | date: 'short'}}</span>
+
+                              @if(comment.user_Id == user.user_Id ){
+                              <i class="bi bi-trash text-danger" (click)="deleteComment(comment.comment_Id)"></i>
+                              }
+                            </div>
+                            <p class="mb-2">{{comment.comment_text}}</p>
+                            <div class="comment-actions">
+
+                              <a href="#" data-bs-toggle="collapse" [href]="'#collapseComment' + comment.comment_Id"
+                                role="button" aria-expanded="false"
+                                [attr.aria-controls]="'collapseComment'+ comment.comment_Id"><i class="bi bi-reply"></i>
+                                Reply</a>
+
+                              <a href="#" data-bs-toggle="collapse"
+                                [href]="'#collapseCommentReply' + comment.comment_Id" id="{{comment.comment_Id}}"
+                                role="button" aria-expanded="false"
+                                [attr.aria-controls]="'collapseCommentReply'+ comment.comment_Id"
+                                (click)="commentReply(comment.comment_Id)">View Replies..</a>
+                              <div class="collapse" [id]="'collapseComment'+comment.comment_Id">
+                                <div class="timeline-comment-box rounded" style="width: 100%;">
+                                  <div class="user"><img [src]="pfpUrl"></div>
+                                  <div class="input">
+                                    <form action="">
+                                      <div class="input-group">
+                                        <input type="text" class="form-control rounded-corner" [(ngModel)]="addCmntReply.replyText"
+                                         name="commentReply" placeholder="Write a reply...">
+                                        <span class="input-group-btn p-l-10">
+                                          <button class="btn btn-primary f-s-12 rounded-corner"
+                                            type="button" (click)="addCommentReply(comment.comment_Id)">Reply</button>
+                                        </span>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="collapse" [id]="'collapseCommentReply'+comment.comment_Id">
+
+                          @if (getCmntReply[comment.comment_Id] !=[] && getCmntReply[comment.comment_Id] !=undefined &&
+                          getCmntReply[comment.comment_Id].length>0) {
+                          @for(commentReply of getCmntReply[comment.comment_Id]; track $index){
+                          <!-- Reply Section -->
+
+                          <div id="{{$index}}" class="reply-section mt-3">
+                            <div class="comment-box">
+                              <div class="d-flex gap-3">
+                                <app-user-image [username]="commentReply.username" ></app-user-image>
+                                
+                                <div class="flex-grow-1">
+                                  <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="mb-0">{{commentReply.name}}</h6>
+                                    <span class="comment-time">{{commentReply.createdAt | date:'short'}}</span>
+                                    @if(commentReply.user_Id == user.user_Id ){
+                              <i class="bi bi-trash text-danger" (click)="deleteCommentReply(commentReply.reply_Id,comment.comment_Id)"></i>
+                              }
+                                  </div>
+                                  <p class="mb-2">{{commentReply.replyText}}
+                                  </p>
+                                  <div class="comment-actions">
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>}
+                          }
+                          @else{
+                          <div class="text-danger">No Replies</div>
+                          }
+                          <!-- @if(getCmntReply[comment.comment_Id].length>0){ -->
+
+                          <!-- }
+                        @else {
+                          <div class="text-danger"> No Replies</div>
+                        } -->
+
+                        </div>
+                      </div>
+
+                      <!-- } -->
+
+                      }
+
+                    </div>
+                    <!-- }
+                    @else {
+                  } -->}
+                    @else {
+                    <div class="text-danger"> No Comments Added!</div>
+                    }
+                  </div>
+                  <!-- <ng-template #elseTemplate>
+                              <div class="text-danger"> No Comments Added!</div>
+                      </ng-template> -->
+                </div>

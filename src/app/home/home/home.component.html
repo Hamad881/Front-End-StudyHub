@@ -11,8 +11,8 @@
       <div class="container  d-flex flex-column align-items-center">
         <div class="post-box mt-2" style="width: 98.2%;">
           <div class="input-group-custom">
-            <img src="https://via.placeholder.com/40" alt="User Avatar">
-            <input type="text" class="input-custom" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <img [src]="pfpUrl" alt="User Avatar">
+            <input type="text" class="input-custom " data-bs-toggle="modal" data-bs-target="#exampleModal"
               placeholder="What do you want to share?">
           </div>
           <div class="actionbtn justify-content-center d-flex mt-2">
@@ -77,7 +77,6 @@
         (scrolled)="onScroll()">
         <div *ngFor="let post of posts">
 
-
           <ul class="timeline">
             <li>
               <div class="timeline-time">
@@ -93,13 +92,76 @@
               <!-- begin timeline-body -->
               <div class="timeline-body ">
                 <div class="timeline-header">
-                  <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></span>
+                  <span ><app-user-image [username]="post.username"></app-user-image></span>
                   <div class="justify-content-between d-flex">
-                    <span class="username"><a href="javascript:;">{{post.name}}</a> <small></small></span>
+                    <span class="username"><a href="javascript:;" (click)="getUserDetailsByUserId(post.user_Id)">{{post.name}}  </a> <small></small></span>
+                    
+                    <!-- <span style="font-size: 8pt; color: gray;">{{post.dateCreated | date:'shortTime'}} |
+                      {{post.dateCreated | date:'shortDate'}}</span> -->
 
-                    <span style="font-size: 8pt; color: gray;">{{post.dateCreated | date:'shortTime'}} |
-                      {{post.dateCreated | date:'shortDate'}}</span>
+                      @if(user.user_Id==post.user_Id){
+                    <div class="dropdown ms-auto">
 
+                      <i class="bi bi-list" data-bs-toggle="dropdown" aria-expanded="false"></i>
+
+                      <ul class="dropdown-menu">
+                        <li>
+                          <span class="dropdown-item" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#updatepostModal'+ post.post_Id"
+                            (click)="getPostByPostId(post.post_Id)">
+                            <i class="fas fa-pen mx-2"></i> Update
+                          </span>
+                        </li>
+                        <li>
+                          <span class="dropdown-item text-danger" (click)="deletePost(post.post_Id)">
+                            <i class="fas fa-trash mx-2 text-danger"></i> Delete
+                          </span>
+                        </li>
+                      </ul>
+                    </div>}
+                    <form #form="ngForm">
+                      <div class="modal fade" [id]="'updatepostModal' + post.post_Id" tabindex="-1"
+                        [attr.aria-labelledby]="'updatepostModalLabel' + post.post_Id" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" [id]="'updatepostModalLabel'+post.post_Id">Update Post</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                              <textarea class="form-control" rows="5" id="post" name="text"
+                                [(ngModel)]="updatePostData.data" required></textarea>
+                              <div class="text-danger">@if (TextArea.errors?.['required']) {
+                                <span>* required</span>
+                                }
+                              </div>
+                              <label for="category" class="mt-1">Select Category</label>
+                              <select class="form-select mt-2" aria-label="Default select example" name="category"
+                                [(ngModel)]="updatePostData.cat_Id" required>
+
+                                @for(category of categoryList; track $index){
+                                <option [value]="category.cat_Id">{{category.cat_Name}}</option>
+                                }
+                              </select>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between">
+                              <div> <i class="imageup fa-regular fa-image fs-4 text-secondary"></i>
+
+                              </div>
+
+                              <div><button type="button" class="btn btn-secondary mx-1"
+                                  data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                  [disabled]="form.invalid" (click)="postUpdate(post.post_Id)">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div class="timeline-content">
@@ -107,13 +169,14 @@
 
                   <p class="mt-2">
                     {{post.data}}
+
                   </p>
                 </div>
                 <div class="timeline-likes">
                   <!-- <div class="stats-right">
                     <span class="stats-text">{{getPostComment.length}}</span>
                   </div> -->
-                  <div class="stats">
+                  <!-- <div class="stats">
                     <span class="fa-stack fa-fw stats-icon">
                       <i class="fa fa-circle fa-stack-2x text-danger"></i>
                       <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
@@ -123,12 +186,11 @@
                       <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                     </span>
                     <span class="stats-total">4.3k</span>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="timeline-footer">
-                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
-                      class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
+                  <app-react [post_Id]="post.post_Id"  ></app-react>
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter mx-2" data-bs-toggle="collapse"
                     [href]="'#collapseComment' + post.post_Id" role="button" aria-expanded="false"
                     [attr.aria-controls]="'collapseComment'+ post.post_Id" (click)="getComment(post.post_Id)"><i
@@ -136,143 +198,29 @@
                 </div>
 
                 <div class="timeline-comment-box">
-                  <button class="btn btn-outline-secondary rounded w-100" type="button" data-bs-toggle="collapse"
-                    [attr.data-bs-target]="'#collapseAddComment' + post.post_Id" aria-expanded="false"
-                    [attr.aria-controls]="'collapseAddComment'+ post.post_Id">
-                    Add Comment
-                  </button>
-                  <div class="collapse" [id]="'collapseAddComment'+ post.post_Id">
-                    <div class="card card-body mt-2">
-                      <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar6.png"></div>
-                      <div class="input">
-                        <form action="">
-                          <div class="input-group">
-                            <input type="text" class="form-control rounded-corner" placeholder="Write a comment..."
-                              [(ngModel)]="addCmnt[post.post_Id].comment_text" [name]="'comment_text' + post.post_Id">
-                            <span class="input-group-btn p-l-10">
-                              <button class="btn btn-primary f-s-12 rounded-corner" type="button"
-                                (click)="createComment(post.post_Id)">Comment</button>
-                            </span>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
+                  <div class="userimage"><img [src]="pfpUrl"></div>
+                  <div class="input">
+                    <form action="">
+                      <div class="input-group">
+                        <input type="text" class="form-control rounded-corner" placeholder="Write a comment..."
+                          [(ngModel)]="addCmnt[post.post_Id].comment_text" [name]="'comment_text' + post.post_Id">
+                        <span class="input-group-btn p-l-10">
+                          <button class="btn btn-outline-secondary f-s-12 rounded-corner" type="button"
+                            (click)="createComment(post.post_Id)">Comment</button>
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+
+
+                </div>
               </div>
+
               <div class="collapse" [id]="'collapseComment'+post.post_Id">
 
                 <div class="container w-75">
-                  <div class="comment-section">
-                    @if (getPostComment[post.post_Id] != [] && getPostComment[post.post_Id] !=undefined &&
-                    getPostComment[post.post_Id].length>0){
-                    <!-- Comments List -->
-                    <div class="comments-list">
-                      @for(comment of getPostComment[post.post_Id]; track $index){
-                      <!-- Comment 1 -->
-
-
-                      <div class="comment-box">
-
-                        <div class="d-flex gap-3">
-                          <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="User Avatar"
-                            class="user-avatar">
-                          <div class="flex-grow-1">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                              <h6 class="mb-0">{{comment.userName}}</h6>
-                              <span class="comment-time">{{comment.created_At | date: 'short'}}</span>
-
-                              @if(comment.user_Id == user.user_Id ){
-                              <i class="bi bi-trash text-danger" (click)="deleteComment(comment.comment_Id)"></i>
-                              }
-                            </div>
-                            <p class="mb-2">{{comment.comment_text}}</p>
-                            <div class="comment-actions">
-
-                              <a href="#" data-bs-toggle="collapse" [href]="'#collapseComment' + comment.comment_Id"
-                                role="button" aria-expanded="false"
-                                [attr.aria-controls]="'collapseComment'+ comment.comment_Id"><i class="bi bi-reply"></i>
-                                Reply</a>
-
-                              <a href="#" data-bs-toggle="collapse"
-                                [href]="'#collapseCommentReply' + comment.comment_Id" id="{{comment.comment_Id}}"
-                                role="button" aria-expanded="false"
-                                [attr.aria-controls]="'collapseCommentReply'+ comment.comment_Id"
-                                (click)="commentReply(comment.comment_Id)">View Replies..</a>
-                              <div class="collapse" [id]="'collapseComment'+comment.comment_Id">
-                                <div class="timeline-comment-box rounded" style="width: 100%;">
-                                  <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar6.png"></div>
-                                  <div class="input">
-                                    <form action="">
-                                      <div class="input-group">
-                                        <input type="text" class="form-control rounded-corner"
-                                          placeholder="Write a reply...">
-                                        <span class="input-group-btn p-l-10">
-                                          <button class="btn btn-primary f-s-12 rounded-corner"
-                                            type="button">Reply</button>
-                                        </span>
-                                      </div>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="collapse" [id]="'collapseCommentReply'+comment.comment_Id">
-
-                          @if (getCmntReply[comment.comment_Id] !=[] && getCmntReply[comment.comment_Id] !=undefined &&
-                          getCmntReply[comment.comment_Id].length>0) {
-                          @for(commentReply of getCmntReply[comment.comment_Id]; track $index){
-                          <!-- Reply Section -->
-
-                          <div id="{{$index}}" class="reply-section mt-3">
-                            <div class="comment-box">
-                              <div class="d-flex gap-3">
-                                <img src="https://randomuser.me/api/portraits/women/64.jpg" alt="User Avatar"
-                                  class="user-avatar">
-                                <div class="flex-grow-1">
-                                  <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="mb-0">{{commentReply.userName}}</h6>
-                                    <span class="comment-time">{{commentReply.createdAt | date:'short'}}</span>
-                                  </div>
-                                  <p class="mb-2">{{commentReply.replyText}}
-                                  </p>
-                                  <div class="comment-actions">
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>}
-                          }
-                          @else{
-                          <div class="text-danger">No Replies</div>
-                          }
-                          <!-- @if(getCmntReply[comment.comment_Id].length>0){ -->
-
-                          <!-- }
-                        @else {
-                          <div class="text-danger"> No Replies</div>
-                        } -->
-
-                        </div>
-                      </div>
-
-                      <!-- } -->
-
-                      }
-
-                    </div>
-                    <!-- }
-                    @else {
-                  } -->}
-                    @else {
-                    <div class="text-danger"> No Comments Added!</div>
-                    }
-                  </div>
+                  <app-comment [post_Id]="post.post_Id " [getPostComment]="getPostComment[post.post_Id]"></app-comment>
                   <!-- <ng-template #elseTemplate>
                               <div class="text-danger"> No Comments Added!</div>
                       </ng-template> -->

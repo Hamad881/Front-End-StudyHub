@@ -1,9 +1,10 @@
 export interface IGetComment{
     comment_Id:number;
     comment_text:string;
-    userName:string;
+    username:string;
     created_At:Date;
     user_Id:number;
+    name:string;
 
    
 
@@ -23,22 +24,24 @@ export class AddComment{
 }
 export interface IGetCommentReply{
 createdAt:Date;
-userName:string;
+name:string;
 replyText:string;
+user_Id:number;
+reply_Id:number;
+username:string;
 
 
 }
 export class AddCommentReply{
-    isReply:boolean;
-    commentId:number;
+    
     replyText:string;
 
     /**
      *
      */
     constructor() {
-      this.commentId=0;
+      
       this.replyText='';
-      this.isReply=false;
+     
     }
 }

@@ -27,9 +27,21 @@ export class CurrentUserInfo {
 }
 export class CurrentUserId{
   user_Id:number;
+  username:string;
  
   constructor() {
    this.user_Id=0;
+   this.username=''
     
   }
+}
+export interface ICurrentUserInfo {
+    phone : string;
+    country: string;
+    name: string;
+    email: string;
+    address: string;
+    education: string;
+    username: string;
+    aboutInfo:string;
 }

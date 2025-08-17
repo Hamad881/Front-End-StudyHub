@@ -4,6 +4,7 @@ import { SignInComponent } from './login/sign-in/sign-in.component';
 import { RegistrationComponent } from './login/registration/registration.component';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { ProfileComponent } from './profile/profile/profile.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,10 @@ export const routes: Routes = [
             {
                 path:"profile",
                 component:ProfileComponent
+            },
+            {
+                path:"userprofile",
+                component:UserprofileComponent
             }
         ]
     },

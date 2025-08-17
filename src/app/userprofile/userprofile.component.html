@@ -4,24 +4,25 @@
     <div class="row justify-content-md-center">
     </div>
   </div>
+
   <div class="container">
     <div class="row gy-4 gy-lg-0">
       <div class="col-12 col-lg-4 col-xl-3">
         <div class="row gy-4">
           <div class="col-12">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-header text-bg-dark">Welcome, {{currentUserInfo.name}}</div>
+              <div class="card-header text-bg-dark">Welcome, {{userDetail.name}}</div>
               <div class="card-body">
                 <div class="text-center mb-3">
-                  <img [src]="pfpUrl" class="img-fluid rounded-circle" style="height: 250px; width: 250px;">
+                  <img [src]="pfpUrl" style="width: 250px;height: 250px;" class="img-fluid rounded-circle" [alt]="userDetail.username">
                 </div>
-                <h5 class="text-center mb-1">{{currentUserInfo.name}}</h5>
+                <h5 class="text-center mb-1">{{userDetail.name}}</h5>
                
               </div>
             </div>
           </div>
           <div class="col-12">
-          
+           
           </div>
           <div class="col-12">
             <div class="card widget-card border-light shadow-sm">
@@ -33,14 +34,14 @@
                       <span class="bii bi-mortarboard-fill me-2"></span>
                       Education
                     </h6>
-                    <span>{{currentUserInfo.education}}</span>
+                    <span>{{userDetail.education}}</span>
                   </li>
                   <li class="list-group-item">
                     <h6 class="mb-1">
                       <span class="bii bi-geo-alt-fill me-2"></span>
                       Location
                     </h6>
-                    <span>{{currentUserInfo.address}}, {{currentUserInfo.country}}</span>
+                    <span>{{userDetail.address}}, {{userDetail.country}}</span>
                   </li>
                  
                 </ul>
@@ -60,82 +61,72 @@
                   aria-selected="true">Overview</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                  type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Edit Profile</button>
-              </li>
-
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password-tab-pane"
-                  type="button" role="tab" aria-controls="password-tab-pane" aria-selected="false">Password</button>
-              </li>
-              <li class="nav-item" role="presentation">
                 <button class="nav-link" id="mypost-tab" data-bs-toggle="tab" data-bs-target="#mypost-tab-pane"
-                  type="button" role="tab" aria-controls="mypost-tab-pane" aria-selected="false">My Posts</button>
+                  type="button" role="tab" aria-controls="mypost-tab-pane" aria-selected="false">Posts</button>
               </li>
             </ul>
             <div class="tab-content pt-4" id="profileTabContent">
               <div class="tab-pane fade show active" id="overview-tab-pane" role="tabpanel"
                 aria-labelledby="overview-tab" tabindex="0">
                 <h5 class="mb-3">About</h5>
-                <p class="lead mb-3">{{currentUserInfo.aboutInfo}}</p>
+                <p class="lead mb-3">{{userDetail.aboutInfo}}</p>
                 <h5 class="mb-3">Profile</h5>
                 <div class="row g-0">
                   <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
                     <div class="p-2">Name</div>
                   </div>
                   <div class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
-                    <div class="p-2">{{currentUserInfo.name}}</div>
+                    <div class="p-2">{{userDetail.name}}</div>
                   </div>
                   
                   <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
                     <div class="p-2">Education</div>
                   </div>
                   <div class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
-                    <div class="p-2">{{currentUserInfo.education}}</div>
+                    <div class="p-2">{{userDetail.education}}</div>
                   </div>
                   <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
                     <div class="p-2">Address</div>
                   </div>
                   <div class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
-                    <div class="p-2">{{currentUserInfo.address}}</div>
+                    <div class="p-2">{{userDetail.address}}</div>
                   </div>
                   <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
                     <div class="p-2">Country</div>
                   </div>
                   <div class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
-                    <div class="p-2">{{currentUserInfo.country}}</div>
+                    <div class="p-2">{{userDetail.country}}</div>
                   </div>
                   <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
                     <div class="p-2">Phone</div>
                   </div>
                   <div class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
-                    <div class="p-2">{{currentUserInfo.phone}}</div>
+                    <div class="p-2">{{userDetail.phone}}</div>
                   </div>
                   <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
                     <div class="p-2">Email</div>
                   </div>
                   <div class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
-                    <div class="p-2">{{currentUserInfo.email}}</div>
+                    <div class="p-2">{{userDetail.email}}</div>
                   </div>
                 </div>
               </div>
-              <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+              <!-- <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
                 tabindex="0">
                 <form action="#!" class="row gy-3 gy-xxl-4">
                   <div class="col-12">
                     <div class="row gy-2">
                       <label class="col-12 form-label m-0">Profile Image</label>
                       <div class="col-12">
-                        <img [src]="pfpUrl" class="img-fluid rounded" style="height: 200px; width:200px" [alt]="currentUserInfo.username">
+                        <img src="./assets/img/profile-img-1.jpg" class="img-fluid" alt="Luna John">
                       </div>
                       <div class="col-12">
-                        <div class="file-input">
-                        <input type="file" name="file-input" id="file-input"  class="file-input__input btn-outline-primary " (change)="addUserPfp($event)"/>
-                        <label class="file-input__label border-1 lh-sm rounded" for="file-input"><i class="bi bi-upload  me-2"></i> <span>Picture</span></label>
-                    
-                        <a  class="d-inline-block bg-danger link-light  p-2 rounded mx-1" (click)="removePfp()">
+                        <a href="#!" class="d-inline-block bg-primary link-light lh-1 p-2 rounded">
+                          <i class="bi bi-upload"></i>
+                        </a>
+                        <a href="#!" class="d-inline-block bg-danger link-light lh-1 p-2 rounded mx-1">
                           <i class="bi bi-trash m-"></i>
-                        </a></div>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -146,7 +137,7 @@
                   </div>
 
                   <div class="col-12 col-md-6">
-                    <label for="inputEducation" class="form-label">Education </label>
+                    <label for="inputEducation" class="form-label">Education</label>
                     <input type="text" class="form-control" id="inputEducation" [(ngModel)]="currentUserInfo.education"
                       name="education">
                   </div>
@@ -431,9 +422,9 @@
                     <button type="submit" class="btn btn-primary" (click)="onSaveChanges()">Save Changes</button>
                   </div>
                 </form>
-              </div>
+              </div> -->
 
-              <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab"
+              <!-- <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab"
                 tabindex="0">
                 <form action="#!">
                   <div class="row gy-3 gy-xxl-4">
@@ -454,7 +445,7 @@
                     </div>
                   </div>
                 </form>
-              </div>
+              </div> -->
               <div class="tab-pane fade" id="mypost-tab-pane" role="tabpanel" aria-labelledby="mypost-tab" tabindex="0">
                 <section class="bg-secondary-subtle rounded">
                   @for(post of postObj; track $index){
@@ -478,33 +469,13 @@
                        
                       <div class="timeline-body ">
                         <div class="timeline-header">
-                          <span class="userimage"><img [src]="pfpUrl"
-                              alt=""></span>
+                          <span class="userimage"><app-user-image [username]="post.username"></app-user-image></span>
                               <div class="justify-content-between d-flex">
-                          <span class="username "><a href="javascript:;">{{post.name}}</a> <small></small></span>
-                          <div class="ms-2">
-                            <span   style="font-size: 8pt; color: gray;">{{post.dateCreated | date:'shortTime'}} | {{post.dateCreated | date:'shortDate'}}</span></div>
-                             <div class="dropdown ms-auto">
-
-                      <i class="bi bi-list" data-bs-toggle="dropdown" aria-expanded="false"></i>
-
-                      <ul class="dropdown-menu">
-                        <li>
-                          <span class="dropdown-item" data-bs-toggle="modal"
-                            [attr.data-bs-target]="'#updatepostModal'+ post.post_Id"
-                            (click)="getPostByPostId(post.post_Id)">
-                            <i class="fas fa-pen mx-2"></i> Update
-                          </span>
-                        </li>
-                        <li>
-                          <span class="dropdown-item text-danger" (click)="deletePost(post.post_Id)">
-                            <i class="fas fa-trash mx-2 text-danger"></i> Delete
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
+                          <span class="username"><a href="javascript:;">{{post.name}}</a> <small></small></span>
+                          
+                            <span  style="font-size: 8pt; color: gray;">{{post.dateCreated | date:'shortTime'}} | {{post.dateCreated | date:'shortDate'}}</span>
+                            
                           </div>
-                                       
                         </div>
                         <div class="timeline-content">
                           <span class="catogaryName bg-primary-subtle rounded p-1 text-white"> {{post.cat_Name}}</span>
@@ -513,28 +484,23 @@
                             {{post.data}}
                           </p>
                         </div>
-                        <div class="timeline-likes">
-                          <!-- <div class="stats-right">
-                            <span class="stats-text">21 Comments</span>
-                          </div> -->
-                          
-                        </div>
+                        
                         <div class="timeline-footer">
-                          <app-react [post_Id]="post.post_Id"></app-react>
-                           <a href="javascript:;" class="m-r-15 text-inverse-lighter mx-2" data-bs-toggle="collapse"
+                                                    <app-react [post_Id]="post.post_Id"></app-react>
+                        <a href="javascript:;" class="m-r-15 text-inverse-lighter mx-2" data-bs-toggle="collapse"
                     [href]="'#collapseComment' + post.post_Id" role="button" aria-expanded="false"
                     [attr.aria-controls]="'collapseComment'+ post.post_Id" (click)="getComment(post.post_Id)"><i
-                      class="fa fa-comments fa-fw fa-lg m-r-3"></i> </a>
+                      class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                         </div>
                         <div class="timeline-comment-box">
-                          <div class="userimage"><img [src]="pfpUrl"></div>
+                          <div class="user"><img [src]="currentPfpUrl"></div>
                           <div class="input">
                             <form action="">
                               <div class="input-group">
-                               <input type="text" class="form-control rounded-corner" placeholder="Write a comment..."
+                                <input type="text" class="form-control rounded-corner" placeholder="Write a comment..."
                           [(ngModel)]="addCmnt[post.post_Id].comment_text" [name]="'comment_text' + post.post_Id">
                         <span class="input-group-btn p-l-10">
-                          <button class="btn btn-outline-secondary f-s-12 rounded-corner" type="button"
+                          <button class="btn btn-primary f-s-12 rounded-corner" type="button"
                             (click)="createComment(post.post_Id)">Comment</button>
                                 </span>
                               </div>
@@ -542,7 +508,7 @@
                           </div>
                         </div>
                       </div>
-                     <div class="collapse" [id]="'collapseComment'+post.post_Id">
+                      <div class="collapse" [id]="'collapseComment'+post.post_Id">
 
                 <div class="container w-75">
                   <app-comment [post_Id]="post.post_Id " [getPostComment]="getPostComment[post.post_Id]"></app-comment>
